@@ -6,12 +6,28 @@ import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, X } from 'lucide-react'
 import { allStoryImages, galleryImages, heroImage, storyChapters } from '@/data/gallery'
 
 function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <div className={`reveal ${className}`}>{children}</div>
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        element.dataset.visible = 'true'
+        observer.disconnect()
+      }
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 })
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [])
+
+  return <div ref={ref} className={`reveal ${className}`}>{children}</div>
 }
 
 export default function WeddingPage() {
   const [activeImage, setActiveImage] = useState<number | null>(null)
   const lastFocused = useRef<HTMLElement | null>(null)
+  const touchStart = useRef<number | null>(null)
 
   useEffect(() => {
     if (activeImage === null) return
@@ -50,7 +66,7 @@ export default function WeddingPage() {
         </div>
         <Reveal className="hero-image-wrap">
           <Image src={heroImage.src} alt={heroImage.alt} fill priority sizes="(max-width: 700px) 100vw, 58vw" className="cover-image" />
-          <span className="image-index">01 <span>/</span> 13</span>
+          <span className="image-index">01 <span>/</span> {String(galleryImages.length).padStart(2, '0')}</span>
         </Reveal>
         <div className="hero-scroll" aria-hidden="true"><span>Scroll to explore</span><ArrowDown size={15} /></div>
       </section>
@@ -105,7 +121,7 @@ export default function WeddingPage() {
       <footer className="site-footer"><span>Tobi & Seyi</span><span>From friendship to forever.</span><a href="#top">Back to top <ArrowUpRight size={13} /></a></footer>
 
       {activeImage !== null && (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" onClick={() => setActiveImage(null)}>
+        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" onClick={() => setActiveImage(null)} onTouchStart={(event) => { touchStart.current = event.touches[0]?.clientX ?? null }} onTouchEnd={(event) => { const start = touchStart.current; const end = event.changedTouches[0]?.clientX; touchStart.current = null; if (start === null || end === undefined || Math.abs(end - start) < 44) return; setActiveImage((index) => index === null ? 0 : end < start ? (index + 1) % galleryImages.length : (index - 1 + galleryImages.length) % galleryImages.length) }}>
           <button className="lightbox-close" onClick={() => setActiveImage(null)} aria-label="Close photo viewer"><X size={20} /></button>
           <button className="lightbox-nav lightbox-prev" onClick={(event) => { event.stopPropagation(); setActiveImage((activeImage - 1 + galleryImages.length) % galleryImages.length) }} aria-label="Previous photo"><ArrowLeft size={22} /></button>
           <div className="lightbox-image" onClick={(event) => event.stopPropagation()}>

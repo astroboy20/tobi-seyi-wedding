@@ -18,6 +18,7 @@ export const galleryImages: GalleryImage[] = [
   { src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/B3A1361D-51B2-4EDD-BD8F-9F4151A34EAC-x4VdCG5KLFNAG5YUCf3q650QtzOMHf.jpg', alt: 'A black and white portrait of Tobi with her ring', className: 'gallery-tall' },
   { src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8855.JPG-C3KTymA5C3ZXkT3DIK8L663KLOYS2B.jpeg', alt: 'A joyful black and white moment between Tobi and Seyi', className: 'gallery-wide' },
   { src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8871.JPG-VbxiF1DISg8uqLcVyN9UctYwkmwV5H.jpeg', alt: 'Tobi and Seyi dancing together in a studio portrait', className: 'gallery-feature' },
+  { src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/B3BC0D9C-0208-44FD-81BF-AA4B0D9E2130-E9j6NIvDDguOIJ9FWtpk0gIWyA5KPH.png', alt: 'Tobi and Seyi dancing together in a bright portrait', className: 'gallery-wide' },
 ]
 
 export const storyChapters = [
@@ -25,10 +26,10 @@ export const storyChapters = [
   { number: '02', label: 'THE UNEXPECTED RECONNECTION', title: 'A simple hello.', text: 'Fast forward to February 2025, when Seyi decided to slide into Tobi’s DMs. What started as a simple catch-up turned into two days of nonstop conversations. Somewhere along the way, Seyi asked if they could explore the possibility of something more.', image: galleryImages[5] },
   { number: '03', label: 'THE DAILY CONVERSATION PROPOSAL', title: 'The best kind of compromise.', text: 'But Tobi had other plans. She wasn’t looking for a relationship and wanted to focus on her career. Instead, she suggested they could be friends who talked every day. Seyi’s response? He wasn’t quite sure he could commit to talking every single day. Tobi thought that was fair enough.', image: galleryImages[7] },
   { number: '04', label: 'THE UNEXPECTED LOVE STORY', title: 'Then, somehow, every day.', text: 'The funny thing? Not a single day has gone by without them talking since. Somewhere between the everyday conversations, laughter, and growing friendship, something beautiful blossomed. What began as a simple reconnection became a love neither of them saw coming.', image: galleryImages[1] },
-  { number: '05', label: 'FROM FRIENDSHIP TO FOREVER', title: 'The conversation continues.', text: 'And now, one year and five months later, the two people who weren’t quite planning on falling in love are preparing to spend forever together. Turns out, some of the best love stories begin with the simplest conversations.', image: galleryImages[12] },
+  { number: '05', label: 'FROM FRIENDSHIP TO FOREVER', title: 'The conversation continues.', text: 'And now, one year and five months later, the two people who weren’t quite planning on falling in love are preparing to spend forever together. Turns out, some of the best love stories begin with the simplest conversations.', image: galleryImages[13] },
 ]
 
-export const heroImage = galleryImages[12]
+export const heroImage = galleryImages[5]
 
 export const allStoryImages = [...galleryImages]
 
