@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, X } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Copy, X } from 'lucide-react'
 import { allStoryImages, galleryImages, heroImage, storyChapters } from '@/data/gallery'
 
 function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -26,8 +26,20 @@ function Reveal({ children, className = '' }: { children: React.ReactNode; class
 
 export default function WeddingPage() {
   const [activeImage, setActiveImage] = useState<number | null>(null)
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const lastFocused = useRef<HTMLElement | null>(null)
   const touchStart = useRef<number | null>(null)
+
+  const copyText = async (text: string) => {
+    try {
+      if (!navigator.clipboard) throw new Error('Clipboard unavailable')
+      await navigator.clipboard.writeText(text)
+      setCopyStatus('success')
+    } catch {
+      setCopyStatus('error')
+    }
+    window.setTimeout(() => setCopyStatus('idle'), 2400)
+  }
 
   useEffect(() => {
     if (activeImage === null) return
@@ -112,10 +124,29 @@ export default function WeddingPage() {
         </div>
       </section>
 
+      <section className="gift-section section-pad" aria-labelledby="gift-title">
+        <Reveal className="gift-inner">
+          <div className="gift-copy">
+            <p className="eyebrow sage">A little gift of love</p>
+            <h2 id="gift-title">Your presence is<br /><em>the greatest gift.</em></h2>
+            <p>For those who would like to bless us further, we are grateful for every thoughtful gesture.</p>
+          </div>
+          <div className="gift-details">
+            <dl>
+              <div><dt>Bank</dt><dd>Access Bank</dd></div>
+              <div><dt>Account number</dt><dd className="account-number">0767137861 <button className="icon-button" type="button" onClick={() => copyText('0767137861')} aria-label="Copy account number"><Copy size={15} /></button></dd></div>
+              <div><dt>Account name</dt><dd>Oluwatobi Glory Ajiboye</dd></div>
+            </dl>
+            <button className="copy-details" type="button" onClick={() => copyText('Access Bank\nAccount Number: 0767137861\nAccount Name: Oluwatobi Glory Ajiboye')}><Copy size={14} /> Copy account details</button>
+            <p className={`copy-feedback ${copyStatus}`} role="status" aria-live="polite">{copyStatus === 'success' ? 'Copied!' : copyStatus === 'error' ? 'Copy unavailable — please select and copy manually.' : ''}</p>
+          </div>
+        </Reveal>
+      </section>
+
       <section className="closing section-pad">
         <div className="closing-mark">T <span>&</span> S</div>
         <Reveal><p className="eyebrow sage">The next chapter</p><h2>Turns out, some of the best<br /><em>love stories begin with the</em><br />simplest conversations.</h2></Reveal>
-        <Reveal><p className="signature">Tobi <span>&</span> Seyi</p><p className="closing-detail">From friendship to forever.</p></Reveal>
+        <Reveal><p className="signature">Tobi <span>&</span> Seyi</p><p className="closing-detail">From friendship to forever.</p><button className="hashtag-button" type="button" onClick={() => copyText('#ATimelessPromise')} aria-label="Copy wedding hashtag">#ATimelessPromise <Copy size={14} /></button><p className={`copy-feedback hashtag-feedback ${copyStatus}`} role="status" aria-live="polite">{copyStatus === 'success' ? 'Copied!' : copyStatus === 'error' ? 'Copy unavailable.' : 'Tap to copy our wedding hashtag'}</p></Reveal>
       </section>
 
       <footer className="site-footer"><span>Tobi & Seyi</span><span>From friendship to forever.</span><a href="#top">Back to top <ArrowUpRight size={13} /></a></footer>
