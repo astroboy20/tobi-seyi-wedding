@@ -24,7 +24,9 @@ function Reveal({ children, className = '' }: { children: React.ReactNode; class
   return <div ref={ref} className={`reveal ${className}`}>{children}</div>
 }
 
-export default function WeddingPage() {
+export type WeddingPageKind = 'home' | 'venue' | 'giving' | 'gallery'
+
+export default function WeddingPage({ page = 'home' }: { page?: WeddingPageKind }) {
   const [activeImage, setActiveImage] = useState<number | null>(null)
   const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const lastFocused = useRef<HTMLElement | null>(null)
@@ -61,15 +63,14 @@ export default function WeddingPage() {
   return (
     <main>
       <header className="site-header">
-        <a href="#top" className="wordmark" aria-label="Tobi and Seyi home">T <span>&</span> S</a>
+        <a href="/" className="wordmark" aria-label="Tobi and Seyi home">T <span>&</span> S</a>
         <nav aria-label="Primary navigation">
-          <a href="#story">Our story</a>
-          <a href="#gallery">Gallery</a>
+          {([['home', 'Home', '/'], ['venue', 'Venue', '/venue'], ['giving', 'Giving', '/giving'], ['gallery', 'Gallery', '/gallery']] as const).map(([key, label, href]) => <a key={key} href={href} className={page === key ? 'active' : ''} aria-current={page === key ? 'page' : undefined}>{label}</a>)}
         </nav>
         <span className="header-note">Since 2019</span>
       </header>
 
-      <section id="top" className="hero section-pad">
+      {page === 'home' && <section id="top" className="hero section-pad">
         <div className="hero-copy">
           <Reveal><p className="eyebrow">A story that started in 2019</p></Reveal>
           <Reveal className="hero-title-wrap"><h1>Tobi <em>&</em><br />Seyi</h1></Reveal>
@@ -81,9 +82,9 @@ export default function WeddingPage() {
           <span className="image-index">01 <span>/</span> {String(galleryImages.length).padStart(2, '0')}</span>
         </Reveal>
         <div className="hero-scroll" aria-hidden="true"><span>Scroll to explore</span><ArrowDown size={15} /></div>
-      </section>
+      </section>}
 
-      <section id="story" className="story section-pad">
+      {page === 'home' && <section id="story" className="story section-pad">
         <div className="section-intro">
           <p className="eyebrow sage">Our love story</p>
           <h2>It started with<br /><em>a conversation.</em></h2>
@@ -105,9 +106,11 @@ export default function WeddingPage() {
             </article>
           ))}
         </div>
-      </section>
+      </section>}
 
-      <section id="gallery" className="gallery section-pad">
+      {page !== 'home' && <section className="page-intro section-pad"><p className="eyebrow sage">{page === 'venue' ? 'Where we celebrate' : page === 'giving' ? 'A little gift of love' : 'A visual archive'}</p><h1>{page === 'venue' ? <>The wedding<br /><em>venue.</em></> : page === 'giving' ? <>Your presence is<br /><em>the greatest gift.</em></> : <>The moments that<br /><em>became forever.</em></>}</h1></section>}
+
+      {(page === 'home' || page === 'gallery') && <section id="gallery" className="gallery section-pad">
         <div className="gallery-heading">
           <Reveal><p className="eyebrow sage">A visual archive</p><h2>The moments that<br /><em>became forever.</em></h2></Reveal>
           <Reveal><p>From the first reconnection to all the little moments in between. A collection of the memories that made the story theirs.</p></Reveal>
@@ -122,9 +125,9 @@ export default function WeddingPage() {
             </Reveal>
           ))}
         </div>
-      </section>
+      </section>}
 
-      <section className="venue-section section-pad" aria-labelledby="venue-title">
+      {(page === 'home' || page === 'venue') && <section className="venue-section section-pad" aria-labelledby="venue-title">
         <Reveal className="venue-inner">
           <div className="venue-label"><MapPin size={18} strokeWidth={1.25} aria-hidden="true" /><p className="eyebrow sage">Where we celebrate</p></div>
           <div className="venue-copy">
@@ -133,9 +136,9 @@ export default function WeddingPage() {
             <a className="text-link" href="https://www.google.com/maps/search/?api=1&query=Whitestone%20Event%20Centre%2C%20Billings%20Road%2C%20Ikeja%2C%20Lagos%2C%20Nigeria" target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={15} strokeWidth={1.5} /></a>
           </div>
         </Reveal>
-      </section>
+      </section>}
 
-      <section className="gift-section section-pad" aria-labelledby="gift-title">
+      {(page === 'home' || page === 'giving') && <section className="gift-section section-pad" aria-labelledby="gift-title">
         <Reveal className="gift-inner">
           <div className="gift-copy">
             <p className="eyebrow sage">A little gift of love</p>
@@ -150,17 +153,18 @@ export default function WeddingPage() {
             </dl>
             <button className="copy-details" type="button" onClick={() => copyText('Access Bank\nAccount Number: 0767137861\nAccount Name: Oluwatobi Glory Ajiboye')}><Copy size={14} /> Copy account details</button>
             <p className={`copy-feedback ${copyStatus}`} role="status" aria-live="polite">{copyStatus === 'success' ? 'Copied!' : copyStatus === 'error' ? 'Copy unavailable — please select and copy manually.' : ''}</p>
+            {page === 'giving' && <button className="hashtag-button" type="button" onClick={() => copyText('#ATimelessPromise')} aria-label="Copy wedding hashtag">#ATimelessPromise <Copy size={14} /></button>}
           </div>
         </Reveal>
-      </section>
+      </section>}
 
-      <section className="closing section-pad">
+      {page === 'home' && <section className="closing section-pad">
         <div className="closing-mark">T <span>&</span> S</div>
         <Reveal><p className="eyebrow sage">The next chapter</p><h2>Turns out, some of the best<br /><em>love stories begin with the</em><br />simplest conversations.</h2></Reveal>
         <Reveal><p className="signature">Tobi <span>&</span> Seyi</p><p className="closing-detail">From friendship to forever.</p><button className="hashtag-button" type="button" onClick={() => copyText('#ATimelessPromise')} aria-label="Copy wedding hashtag">#ATimelessPromise <Copy size={14} /></button><p className={`copy-feedback hashtag-feedback ${copyStatus}`} role="status" aria-live="polite">{copyStatus === 'success' ? 'Copied!' : copyStatus === 'error' ? 'Copy unavailable.' : 'Tap to copy our wedding hashtag'}</p></Reveal>
-      </section>
+      </section>}
 
-      <footer className="site-footer"><span>Tobi & Seyi</span><span>From friendship to forever.</span><a href="#top">Back to top <ArrowUpRight size={13} /></a></footer>
+      <footer className="site-footer"><span>Tobi & Seyi</span><span>From friendship to forever.</span><nav aria-label="Footer navigation"><a href="/">Home</a><a href="/venue">Venue</a><a href="/giving">Giving</a><a href="/gallery">Gallery</a></nav></footer>
 
       {activeImage !== null && (
         <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" onClick={() => setActiveImage(null)} onTouchStart={(event) => { touchStart.current = event.touches[0]?.clientX ?? null }} onTouchEnd={(event) => { const start = touchStart.current; const end = event.changedTouches[0]?.clientX; touchStart.current = null; if (start === null || end === undefined || Math.abs(end - start) < 44) return; setActiveImage((index) => index === null ? 0 : end < start ? (index + 1) % galleryImages.length : (index - 1 + galleryImages.length) % galleryImages.length) }}>
