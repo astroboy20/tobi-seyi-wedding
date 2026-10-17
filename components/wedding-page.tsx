@@ -108,9 +108,7 @@ export default function WeddingPage({ page = 'home' }: { page?: WeddingPageKind 
         </div>
       </section>}
 
-      {page !== 'home' && <section className="page-intro section-pad"><p className="eyebrow sage">{page === 'venue' ? 'Where we celebrate' : page === 'giving' ? 'A little gift of love' : 'A visual archive'}</p><h1>{page === 'venue' ? <>The wedding<br /><em>venue.</em></> : page === 'giving' ? <>Your presence is<br /><em>the greatest gift.</em></> : <>The moments that<br /><em>became forever.</em></>}</h1></section>}
-
-      {(page === 'home' || page === 'gallery') && <section id="gallery" className="gallery section-pad">
+      {page === 'gallery' && <section id="gallery" className="gallery section-pad">
         <div className="gallery-heading">
           <Reveal><p className="eyebrow sage">A visual archive</p><h2>The moments that<br /><em>became forever.</em></h2></Reveal>
           <Reveal><p>From the first reconnection to all the little moments in between. A collection of the memories that made the story theirs.</p></Reveal>
@@ -127,7 +125,7 @@ export default function WeddingPage({ page = 'home' }: { page?: WeddingPageKind 
         </div>
       </section>}
 
-      {(page === 'home' || page === 'venue') && <section className="venue-section section-pad" aria-labelledby="venue-title">
+      {page === 'venue' && <section className="venue-section section-pad" aria-labelledby="venue-title">
         <Reveal className="venue-inner">
           <div className="venue-label"><MapPin size={18} strokeWidth={1.25} aria-hidden="true" /><p className="eyebrow sage">Where we celebrate</p></div>
           <div className="venue-copy">
@@ -138,7 +136,7 @@ export default function WeddingPage({ page = 'home' }: { page?: WeddingPageKind 
         </Reveal>
       </section>}
 
-      {(page === 'home' || page === 'giving') && <section className="gift-section section-pad" aria-labelledby="gift-title">
+      {page === 'giving' && <section className="gift-section section-pad" aria-labelledby="gift-title">
         <Reveal className="gift-inner">
           <div className="gift-copy">
             <p className="eyebrow sage">A little gift of love</p>
