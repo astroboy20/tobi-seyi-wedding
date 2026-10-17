@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Copy, X } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Copy, MapPin, X } from 'lucide-react'
 import { allStoryImages, galleryImages, heroImage, storyChapters } from '@/data/gallery'
 
 function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -122,6 +122,17 @@ export default function WeddingPage() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      <section className="venue-section section-pad" aria-labelledby="venue-title">
+        <Reveal className="venue-inner">
+          <div className="venue-label"><MapPin size={18} strokeWidth={1.25} aria-hidden="true" /><p className="eyebrow sage">Where we celebrate</p></div>
+          <div className="venue-copy">
+            <h2 id="venue-title">Whitestone<br /><em>Event Centre.</em></h2>
+            <p>Billings Road, Ikeja,<br />Lagos, Nigeria</p>
+            <a className="text-link" href="https://www.google.com/maps/search/?api=1&query=Whitestone%20Event%20Centre%2C%20Billings%20Road%2C%20Ikeja%2C%20Lagos%2C%20Nigeria" target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={15} strokeWidth={1.5} /></a>
+          </div>
+        </Reveal>
       </section>
 
       <section className="gift-section section-pad" aria-labelledby="gift-title">
