@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/sonner'
 export const metadata: Metadata = {
   title: 'Tobi & Seyi — From friendship to forever',
   description: 'The story of Tobi and Seyi, from a simple conversation to forever.',
-  generator: 'v0.app',
+  generator: 'Tolulope Akinkunmi - WineRocks',
   icons: {
     icon: [
       {
