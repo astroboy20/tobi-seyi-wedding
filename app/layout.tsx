@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { Toaster } from '@/components/ui/sonner'
 
 export const metadata: Metadata = {
   title: 'Tobi & Seyi — From friendship to forever',
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         {children}
+        <Toaster position="top-center" closeButton richColors />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

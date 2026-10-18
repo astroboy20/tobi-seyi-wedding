@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import { toast } from 'sonner'
 
 const messages = {
   success: 'RSVP confirmed! We look forward to celebrating with you.',
@@ -17,8 +18,16 @@ export function RsvpForm() {
     event.preventDefault()
     const name = fullName.trim()
     const normalizedEmail = email.trim().toLowerCase()
-    if (!name) return setStatus({ type: 'error', message: 'Please enter your full name.' })
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) return setStatus({ type: 'error', message: 'Please enter a valid email address.' })
+    if (!name) {
+      const message = 'Please enter your full name.'
+      toast.error(message)
+      return setStatus({ type: 'error', message })
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+      const message = 'Please enter a valid email address.'
+      toast.error(message)
+      return setStatus({ type: 'error', message })
+    }
 
     setStatus(null)
     setIsSubmitting(true)
@@ -26,11 +35,15 @@ export function RsvpForm() {
       const response = await fetch('/api/rsvp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fullName: name, email }) })
       const result = await response.json()
       if (!response.ok) throw new Error(result.error)
-      setStatus({ type: 'success', message: result.message || messages.success })
+      const message = result.message || messages.success
+      toast.success(message)
+      setStatus({ type: 'success', message })
       setFullName('')
       setEmail('')
     } catch (error) {
-      setStatus({ type: 'error', message: error instanceof Error ? error.message : "We couldn't submit your RSVP. Please try again." })
+      const message = error instanceof Error ? error.message : "We couldn't submit your RSVP. Please try again."
+      toast.error(message)
+      setStatus({ type: 'error', message })
     } finally {
       setIsSubmitting(false)
     }
