@@ -537,14 +537,18 @@ h2 em {
   border-color: var(--sage);
   color: var(--sage);
 }
+.rsvp-section {
+  background: var(--white);
+  padding-top: 150px;
+  padding-bottom: 150px;
+  border-top: 1px solid var(--stone);
+}
 .rsvp-section-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10vw;
   max-width: 1000px;
-  margin: 110px auto 0;
-  padding-top: 90px;
-  border-top: 1px solid var(--stone);
+  margin: 0 auto;
 }
 .rsvp-intro h2 {
   font-size: clamp(42px, 5vw, 70px);
@@ -1106,12 +1110,14 @@ h2 em {
     font-size: 17px;
     margin: 23px 0 27px;
   }
+  .rsvp-section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
   .rsvp-section-inner {
     display: flex;
     flex-direction: column;
     gap: 55px;
-    margin-top: 78px;
-    padding-top: 64px;
   }
   .rsvp-intro h2 {
     font-size: 52px;

@@ -295,21 +295,6 @@ export default function WeddingPage({
               </a>
             </div>
           </Reveal>
-          <Reveal className="rsvp-section-inner">
-            <div className="rsvp-intro">
-              <p className="eyebrow sage">Kindly RSVP</p>
-              <h2>
-                We would love
-                <br />
-                <em>to celebrate with you.</em>
-              </h2>
-              <p>
-                Your presence would mean so much to us. Please let us know if
-                you&apos;ll be joining us as we celebrate our love.
-              </p>
-            </div>
-            <RsvpForm />
-          </Reveal>
         </section>
       )}
 
@@ -389,6 +374,26 @@ export default function WeddingPage({
                 </button>
               )}
             </div>
+          </Reveal>
+        </section>
+      )}
+
+      {page === "home" && (
+        <section className="rsvp-section section-pad" aria-labelledby="rsvp-title">
+          <Reveal className="rsvp-section-inner">
+            <div className="rsvp-intro">
+              <p className="eyebrow sage">Kindly RSVP</p>
+              <h2 id="rsvp-title">
+                We would love
+                <br />
+                <em>to celebrate with you.</em>
+              </h2>
+              <p>
+                Your presence would mean so much to us. Please let us know if
+                you&apos;ll be joining us as we celebrate our love.
+              </p>
+            </div>
+            <RsvpForm />
           </Reveal>
         </section>
       )}
