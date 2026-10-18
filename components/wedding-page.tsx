@@ -190,15 +190,15 @@ export default function WeddingPage({
             </p>
           </div>
           <div className="chapters">
-            {storyChapters.map((chapter, index) => (
+            {storyChapters.map((chapter:any, index) => (
               <article
                 className={`chapter ${index % 2 ? "chapter-reverse" : ""}`}
                 key={chapter.number}
               >
                 <Reveal className="chapter-image">
                   <Image
-                    src={chapter.image.src}
-                    alt={chapter.image.alt}
+                    src={chapter?.image?.src || "/compromise-img.jpg"}
+                    alt={chapter?.image?.alt || "Tobi and Seyi"}
                     fill
                     sizes="(max-width: 700px) 100vw, 48vw"
                     className="cover-image"
@@ -230,7 +230,7 @@ export default function WeddingPage({
             </Reveal>
             <Reveal>
               <p>
-                From the first reconnection to all the little moments in
+                From the first reconnection to all the little moments inz
                 between. A collection of the memories that made the story
                 theirs.
               </p>
