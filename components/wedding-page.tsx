@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Copy, MapPin, X } from 'lucide-react'
 import { allStoryImages, galleryImages, heroImage, storyChapters } from '@/data/gallery'
+import { RsvpForm } from '@/components/rsvp-form'
 
 function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -133,6 +134,10 @@ export default function WeddingPage({ page = 'home' }: { page?: WeddingPageKind 
             <p>Billings Road, Ikeja,<br />Lagos, Nigeria</p>
             <a className="text-link" href="https://www.google.com/maps/search/?api=1&query=Whitestone%20Event%20Centre%2C%20Billings%20Road%2C%20Ikeja%2C%20Lagos%2C%20Nigeria" target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={15} strokeWidth={1.5} /></a>
           </div>
+        </Reveal>
+        <Reveal className="rsvp-section-inner">
+          <div className="rsvp-intro"><p className="eyebrow sage">Kindly RSVP</p><h2>We would love<br /><em>to celebrate with you.</em></h2><p>Your presence would mean so much to us. Please let us know if you&apos;ll be joining us as we celebrate our love.</p></div>
+          <RsvpForm />
         </Reveal>
       </section>}
 
