@@ -382,7 +382,7 @@ export default function WeddingPage({
         <section className="rsvp-section section-pad" aria-labelledby="rsvp-title">
           <Reveal className="rsvp-section-inner">
             <div className="rsvp-intro">
-              <p className="eyebrow sage">Kindly RSVP</p>
+              <h2 id="rsvp-title">Kindly RSVP</h2>
               <h2 id="rsvp-title">
                 We would love
                 <br />
